@@ -5,8 +5,8 @@ import torchvision.models.segmentation
 import torch
 import torchvision.transforms as tf
 
-TrainImagesFolder=r"/media/breakeroftime/2T/Data_zoo/Transparent_Trans10k/train/images//"
-TrainAnnFolder="/media/breakeroftime/2T/Data_zoo/Transparent_Trans10k/train/masks//"
+TrainImagesFolder=r"Trans10k/train/images//"
+TrainAnnFolder="Trans10k/train/masks//"
 
 Learning_Rate=1e-5
 Weight_Decay = 4e-5

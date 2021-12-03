@@ -5,15 +5,12 @@ import torchvision.models.segmentation
 import torch
 import torchvision.transforms as tf
 
-TrainImagesFolder=r"Trans10k/train/images//"
-TrainAnnFolder="Trans10k/train/masks//"
-
 Learning_Rate=1e-5
-Weight_Decay = 4e-5
-
 width=height=900 # image width and height
 batchSize=3
 
+TrainImagesFolder=r"Trans10k/train/images//"
+TrainAnnFolder="Trans10k/train/masks//"
 ListImages=[]
 ListImages=os.listdir(TrainImagesFolder) # Create list of images
 #----------------------------------------------Transform image----------------------------------------------------------------------------------------------------------------------------
@@ -40,14 +37,14 @@ device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cp
 Net = torchvision.models.segmentation.deeplabv3_resnet50(pretrained=True) # Load net
 Net.classifier[4] = torch.nn.Conv2d(256, 3, kernel_size=(1, 1), stride=(1, 1)) # Change final layer to 3 classes
 Net=Net.to(device)
-criterion = torch.nn.CrossEntropyLoss() # Set loss function
-optimizer=torch.optim.Adam(params=Net.parameters(),lr=Learning_Rate,weight_decay=Weight_Decay) # Create adam optimizer
+optimizer=torch.optim.Adam(params=Net.parameters(),lr=Learning_Rate) # Create adam optimizer
 
 for itr in range(20000): # Training loop
    images,ann=LoadBatch() # Load taining batch
    images=torch.autograd.Variable(images,requires_grad=False).to(device) # Load image
    ann = torch.autograd.Variable(ann, requires_grad=False).to(device) # Load annotation
    Pred=Net(images)['out'] # make prediction
+   criterion = torch.nn.CrossEntropyLoss() # Set loss function
    Loss=criterion(Pred,ann.long()) # Calculate cross entropy loss
    Loss.backward() # Backpropogate loss
    optimizer.step() # Apply gradient descent change to weight

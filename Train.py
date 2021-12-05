@@ -17,7 +17,7 @@ ListImages=os.listdir(TrainImagesFolder) # Create list of images
 transformImg=tf.Compose([tf.ToPILImage(),tf.Resize((height,width)),tf.ToTensor(),tf.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])#tf.Resize((300,600)),tf.RandomRotation(145)])#
 transformAnn=tf.Compose([tf.ToPILImage(),tf.Resize((height,width)),tf.ToTensor()])
 #---------------------Read image ---------------------------------------------------------
-def ReadRandomImage(Hb=0,Wb=0): # First lets load random image and  the corresponding annotation
+def ReadRandomImage(): # First lets load random image and  the corresponding annotation
     idx=np.random.randint(0,len(ListImages)) # Select random image
     Img= cv2.imread(os.path.join(TrainImagesFolder, ListImages[idx]))
     AnnMap=cv2.imread(os.path.join(TrainAnnFolder, ListImages[idx].replace(".jpg", "_mask.png")))

@@ -9,7 +9,7 @@ Learning_Rate=1e-5
 width=height=900 # image width and height
 batchSize=3
 
-TrainFolder="/media/breakeroftime/2T/Data_zoo/LabPicsV1.2/Simple/Train//"
+TrainFolder="LabPics/Simple/Train//"
 ListImages=os.listdir(os.path.join(TrainFolder, "Image")) # Create list of images
 #----------------------------------------------Transform image-------------------------------------------------------------------
 transformImg=tf.Compose([tf.ToPILImage(),tf.Resize((height,width)),tf.ToTensor(),tf.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))])

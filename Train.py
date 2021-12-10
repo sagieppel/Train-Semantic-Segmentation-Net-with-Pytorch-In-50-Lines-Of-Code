@@ -45,6 +45,7 @@ for itr in range(10000): # Training loop
    images=torch.autograd.Variable(images,requires_grad=False).to(device) # Load image
    ann = torch.autograd.Variable(ann, requires_grad=False).to(device) # Load annotation
    Pred=Net(images)['out'] # make prediction
+   Net.zero_grad()
    criterion = torch.nn.CrossEntropyLoss() # Set loss function
    Loss=criterion(Pred,ann.long()) # Calculate cross entropy loss
    Loss.backward() # Backpropogate loss
